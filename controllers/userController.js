@@ -5,12 +5,6 @@ exports.getAllUsers = (req, res) => {
   });
 };
 
-exports.createUser = (req, res) => {
-  res.status(500).json({
-    status: "error",
-    message: "This route is not define yet.",
-  });
-};
 exports.singleUser = (req, res) => {
   res.status(500).json({
     status: "error",

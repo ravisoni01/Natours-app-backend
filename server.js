@@ -1,7 +1,13 @@
-const app = require("./app");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
+process.on("uncaughtException", (err) => {
+  console.log("UNCAUGHT EXCEPTION! .");
+  console.log(err.name, err.message);
+
+  process.exit(1);
+});
+const app = require("./app");
 dotenv.config({ path: "./config.env" });
 
 // const DB = process.env.DATABASE;
@@ -17,6 +23,14 @@ mongoose
   .then((res) => console.log("DB Connection"));
 
 const PORT = process.env.PORT;
-app.listen(8000, () => {
+const server = app.listen(8000, () => {
   console.log(`App listen on port ${PORT}`);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED REJECTION! .");
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
 });
