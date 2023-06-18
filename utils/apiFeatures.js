@@ -3,6 +3,7 @@ class APIFeatures {
     this.query = query;
     this.queryString = queryString;
   }
+
   filter() {
     let queryObj = { ...this.queryString };
     let excludedFields = ["page", "limit", "sort", "fields"];
@@ -16,6 +17,7 @@ class APIFeatures {
     this.query.find(JSON.parse(queryStr));
     return this;
   }
+
   sort() {
     if (this.queryString.sort) {
       const sortBy = this.queryString.sort.split(",").join(" ");
@@ -25,6 +27,7 @@ class APIFeatures {
     }
     return this;
   }
+
   limitField() {
     if (this.queryString.fields) {
       const fields = this.queryString.fields.split(",").join(" ");
@@ -34,6 +37,7 @@ class APIFeatures {
     }
     return this;
   }
+
   paginate() {
     const page = this.queryString.page * 1 || 1;
     const limit = this.queryString.limit * 1 || 100;
